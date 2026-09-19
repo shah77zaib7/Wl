@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/wl.html",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "ZEC DESK — WL Access Terminal",
+      "hasCanvas": false,
+      "bodyTextLen": 520,
+      "bodyTextHash": "09e98d2ce592a4ca4113625a1285db843bbf38342fb6318e80aec12db5350cfd",
+      "bodyTextPrefix": "Skip to terminal ZEC DESK WL ACCESS TERMINAL WHITELIST ACCESS PR",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "ZEC DESK — WL Access Terminal",
+      "hasCanvas": false,
+      "bodyTextLen": 520,
+      "bodyTextHash": "09e98d2ce592a4ca4113625a1285db843bbf38342fb6318e80aec12db5350cfd",
+      "bodyTextPrefix": "Skip to terminal ZEC DESK WL ACCESS TERMINAL WHITELIST ACCESS PR",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

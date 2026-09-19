@@ -1,0 +1,38 @@
+{
+  "url": "http://127.0.0.1:8081/wl.html",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "ZEC 1.0 — WL Access Terminal",
+      "hasCanvas": true,
+      "bodyTextLen": 511,
+      "bodyTextHash": "fcd0a60128a49414adc8e639af0a035bafa880b1b1bdbefb34412eff874582e9",
+      "bodyTextPrefix": "Skip to terminal ZEC 1.0 WL ACCESS TERMINAL WHITELIST ACCESS PRO",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "ZEC 1.0 — WL Access Terminal",
+      "hasCanvas": true,
+      "bodyTextLen": 511,
+      "bodyTextHash": "fcd0a60128a49414adc8e639af0a035bafa880b1b1bdbefb34412eff874582e9",
+      "bodyTextPrefix": "Skip to terminal ZEC 1.0 WL ACCESS TERMINAL WHITELIST ACCESS PRO",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": false,
+  "baselineReasons": []
+}
