@@ -4,9 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#050504" />
-    <meta name="description" content="ZEC DESK whitelist access terminal. Identify, complete social protocols, then enter the next stage." />
+    <meta
+      name="description"
+      content="ZEC DESK whitelist access terminal. Identify, complete social protocols, then enter the next stage."
+    />
     <title>ZEC DESK — WL Access Terminal</title>
-    <!-- zec-desk-wl v3 -->
+    <!-- zec-desk-wl v4 -->
     <script>
       (function () {
         try {
@@ -18,13 +21,32 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="src/css/wl.css?v=3" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/css/wl.css?v=4" />
   </head>
   <body>
-    <div class="crt" aria-hidden="true"><div class="crt__grid"></div><div class="crt__scan"></div><div class="crt__vignette"></div></div>
-    <button type="button" class="theme-toggle" data-testid="theme-toggle" data-theme-toggle aria-label="Switch theme" title="Switch theme"><span class="theme-toggle__px" aria-hidden="true"></span></button>
+    <div class="crt" aria-hidden="true">
+      <div class="crt__grid"></div>
+      <div class="crt__scan"></div>
+      <div class="crt__vignette"></div>
+    </div>
+
+    <button
+      type="button"
+      class="theme-toggle"
+      data-testid="theme-toggle"
+      data-theme-toggle
+      aria-label="Switch theme"
+      title="Switch theme"
+    >
+      <span class="theme-toggle__px" aria-hidden="true"></span>
+    </button>
+
     <a class="skip-link" href="#terminal-main">Skip to terminal</a>
+
     <div class="page">
       <div class="terminal" role="application" aria-label="ZEC DESK whitelist access terminal">
         <header class="term-head">
@@ -39,54 +61,226 @@
             <span class="chip chip--dim">PROTOCOL: WL-555</span>
           </div>
         </header>
+
         <nav class="progress" aria-label="Protocol progress">
           <ol class="progress__list">
-            <li class="progress__item is-current" data-progress="identity"><span class="progress__index" data-progress-index>01</span><span class="progress__label">IDENTITY</span><span class="progress__state" data-progress-state>CURRENT</span></li>
-            <li class="progress__item is-locked" data-progress="quests"><span class="progress__index" data-progress-index>02</span><span class="progress__label">QUESTS</span><span class="progress__state" data-progress-state>LOCKED</span></li>
-            <li class="progress__item is-locked" data-progress="reveal"><span class="progress__index" data-progress-index>03</span><span class="progress__label">NEXT STAGE</span><span class="progress__state" data-progress-state>LOCKED</span></li>
+            <li class="progress__item is-current" data-progress="identity">
+              <span class="progress__index" data-progress-index>01</span>
+              <span class="progress__label">IDENTITY</span>
+              <span class="progress__state" data-progress-state>CURRENT</span>
+            </li>
+            <li class="progress__item is-locked" data-progress="quests">
+              <span class="progress__index" data-progress-index>02</span>
+              <span class="progress__label">QUESTS</span>
+              <span class="progress__state" data-progress-state>LOCKED</span>
+            </li>
+            <li class="progress__item is-locked" data-progress="reveal">
+              <span class="progress__index" data-progress-index>03</span>
+              <span class="progress__label">NEXT STAGE</span>
+              <span class="progress__state" data-progress-state>LOCKED</span>
+            </li>
           </ol>
         </nav>
-        <div class="operator-bar" aria-live="polite"><span>OPERATOR: <strong data-operator>—</strong></span><span data-access-flag>ACCESS: RESTRICTED</span></div>
-        <div class="screen-nav"><button type="button" class="btn btn--ghost btn--back" data-testid="step-back" data-back disabled>&lt; BACK</button></div>
+
+        <div class="operator-bar" aria-live="polite">
+          <span>OPERATOR: <strong data-operator>—</strong></span>
+          <span data-access-flag>ACCESS: RESTRICTED</span>
+        </div>
+
+        <div class="screen-nav">
+          <button
+            type="button"
+            class="btn btn--ghost btn--back"
+            data-testid="step-back"
+            data-back
+            disabled
+          >
+            < BACK
+          </button>
+        </div>
+
         <p class="sr-live" id="status-live" aria-live="polite"></p>
+
         <main id="terminal-main" class="term-body">
-          <section class="screen is-active" data-screen="identity" aria-labelledby="identity-heading">
-            <p class="boot-log" aria-hidden="true">&gt; boot zec-desk<br />&gt; supply check .............. 555<br />&gt; network ................... ZEC<br />&gt; access .................... RESTRICTED</p>
+          <!-- STAGE 01 — IDENTITY -->
+          <section
+            class="screen is-active"
+            data-screen="identity"
+            aria-labelledby="identity-heading"
+          >
+            <p class="boot-log" aria-hidden="true">
+              > boot zec-desk<br />
+              > supply check .............. 555<br />
+              > network ................... ZEC<br />
+              > access .................... RESTRICTED
+            </p>
             <h2 id="identity-heading" class="screen-title">IDENTIFICATION REQUIRED</h2>
             <p class="lead">Identify yourself to begin.</p>
+
             <form class="ident-form" data-ident-form novalidate>
               <label class="field-label" for="username-input">X USERNAME</label>
-              <input id="username-input" class="field-input" name="username" type="text" inputmode="text" autocomplete="username" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="16" placeholder="@username" data-testid="username-input" aria-describedby="username-hint username-error" />
+              <input
+                id="username-input"
+                class="field-input"
+                name="username"
+                type="text"
+                inputmode="text"
+                autocomplete="username"
+                autocapitalize="off"
+                autocorrect="off"
+                spellcheck="false"
+                maxlength="16"
+                placeholder="@username"
+                data-testid="username-input"
+                aria-describedby="username-hint username-error"
+              />
               <p id="username-hint" class="hint">Public handle only. No password. No wallet.</p>
               <p id="username-error" class="error" data-username-error hidden></p>
-              <button type="submit" class="btn btn--gold" data-testid="username-next">NEXT</button>
+              <button type="submit" class="btn btn--gold" data-testid="username-next">
+                NEXT
+              </button>
             </form>
             <p class="sys-line"><span class="cursor" aria-hidden="true"></span> SYSTEM: WAITING FOR INPUT</p>
           </section>
+
+          <!-- STAGE 02 — QUESTS -->
           <section class="screen" data-screen="quests" hidden aria-labelledby="quests-heading">
             <h2 id="quests-heading" class="screen-title">QUEST LOG</h2>
             <p class="lead">Complete every protocol to unlock the next stage.</p>
+
             <ol class="quest-list">
-              <li class="quest" data-testid="social-task" data-task="follow" data-task-state="idle"><div class="quest__top"><span class="quest__num">01</span><span class="quest__status" data-task-status>STATUS: REQUIRED</span></div><h3 class="quest__title">FOLLOW THE SYSTEM</h3><p class="quest__desc">Follow the official project account on X.</p><div class="quest__actions"><button type="button" class="btn btn--gold" data-task-open data-testid="task-follow">FOLLOW ON X</button><button type="button" class="btn btn--ghost" data-task-confirm hidden>MARK COMPLETE</button></div></li>
-              <li class="quest" data-testid="social-task" data-task="repost" data-task-state="idle"><div class="quest__top"><span class="quest__num">02</span><span class="quest__status" data-task-status>STATUS: REQUIRED</span></div><h3 class="quest__title">AMPLIFY THE SIGNAL</h3><p class="quest__desc">Like and repost the official announcement.</p><div class="quest__actions"><button type="button" class="btn btn--gold" data-task-open data-testid="task-repost">LIKE + REPOST</button><button type="button" class="btn btn--ghost" data-task-confirm hidden>MARK COMPLETE</button></div></li>
-              <li class="quest" data-testid="social-task" data-task="friends" data-task-state="idle"><div class="quest__top"><span class="quest__num">03</span><span class="quest__status" data-task-status>STATUS: REQUIRED</span></div><h3 class="quest__title">SUMMON TWO USERS</h3><p class="quest__desc">Reply to the announcement and tag 2 friends.</p><div class="quest__actions"><button type="button" class="btn btn--gold" data-task-open data-testid="task-friends">TAG 2 FRIENDS</button><button type="button" class="btn btn--ghost" data-task-confirm hidden>MARK COMPLETE</button></div></li>
+              <li
+                class="quest"
+                data-testid="social-task"
+                data-task="follow"
+                data-task-state="idle"
+              >
+                <div class="quest__top">
+                  <span class="quest__num">01</span>
+                  <span class="quest__status" data-task-status>STATUS: REQUIRED</span>
+                </div>
+                <h3 class="quest__title">FOLLOW THE SYSTEM</h3>
+                <p class="quest__desc">Follow the official project account on X.</p>
+                <div class="quest__actions">
+                  <button
+                    type="button"
+                    class="btn btn--gold"
+                    data-task-open
+                    data-testid="task-follow"
+                  >
+                    FOLLOW ON X
+                  </button>
+                  <button type="button" class="btn btn--ghost" data-task-confirm hidden>
+                    MARK COMPLETE
+                  </button>
+                </div>
+              </li>
+
+              <li
+                class="quest"
+                data-testid="social-task"
+                data-task="repost"
+                data-task-state="idle"
+              >
+                <div class="quest__top">
+                  <span class="quest__num">02</span>
+                  <span class="quest__status" data-task-status>STATUS: REQUIRED</span>
+                </div>
+                <h3 class="quest__title">AMPLIFY THE SIGNAL</h3>
+                <p class="quest__desc">Like and repost the official announcement.</p>
+                <div class="quest__actions">
+                  <button
+                    type="button"
+                    class="btn btn--gold"
+                    data-task-open
+                    data-testid="task-repost"
+                  >
+                    LIKE + REPOST
+                  </button>
+                  <button type="button" class="btn btn--ghost" data-task-confirm hidden>
+                    MARK COMPLETE
+                  </button>
+                </div>
+              </li>
+
+              <li
+                class="quest"
+                data-testid="social-task"
+                data-task="friends"
+                data-task-state="idle"
+              >
+                <div class="quest__top">
+                  <span class="quest__num">03</span>
+                  <span class="quest__status" data-task-status>STATUS: REQUIRED</span>
+                </div>
+                <h3 class="quest__title">SUMMON TWO USERS</h3>
+                <p class="quest__desc">Reply to the announcement and tag 2 friends.</p>
+                <div class="quest__actions">
+                  <button
+                    type="button"
+                    class="btn btn--gold"
+                    data-task-open
+                    data-testid="task-friends"
+                  >
+                    TAG 2 FRIENDS
+                  </button>
+                  <button type="button" class="btn btn--ghost" data-task-confirm hidden>
+                    MARK COMPLETE
+                  </button>
+                </div>
+              </li>
             </ol>
-            <p class="verify-note">This terminal opens X in a new tab. Mark complete when you return — live verification is not connected yet.</p>
+
+            <p class="verify-note">
+              This terminal opens X in a new tab. Mark complete when you return — live verification
+              is not connected yet.
+            </p>
+
             <p class="quest-complete-msg" data-quests-ready hidden>ALL QUESTS COMPLETE</p>
-            <button type="button" class="btn btn--gold" data-testid="quests-continue" disabled>CONTINUE</button>
+
+            <button
+              type="button"
+              class="btn btn--gold"
+              data-testid="quests-continue"
+              disabled
+            >
+              CONTINUE
+            </button>
           </section>
-          <section class="screen reveal" data-screen="reveal" hidden aria-labelledby="reveal-heading" data-testid="stage-reveal">
-            <ol class="reveal-log" aria-hidden="true"><li>SYSTEM CHECK COMPLETE</li><li>QUESTS VERIFIED</li><li>STAGE 03 UNLOCKED</li></ol>
+
+          <!-- STAGE 03 — REVEAL -->
+          <section
+            class="screen reveal"
+            data-screen="reveal"
+            hidden
+            aria-labelledby="reveal-heading"
+            data-testid="stage-reveal"
+          >
+            <ol class="reveal-log" aria-hidden="true">
+              <li>SYSTEM CHECK COMPLETE</li>
+              <li>QUESTS VERIFIED</li>
+              <li>STAGE 03 UNLOCKED</li>
+            </ol>
+
             <p class="reveal-kicker">STAGE 03 UNLOCKED</p>
             <h2 id="reveal-heading" class="reveal-title">YOU MADE IT THIS FAR.</h2>
             <p class="reveal-sub">THE NEXT STAGE AWAITS.</p>
             <p class="reveal-note">The system is ready for your next move.</p>
-            <button type="button" class="btn btn--gold" data-testid="enter-next-stage">ENTER NEXT STAGE</button>
+
+            <button type="button" class="btn btn--gold" data-testid="enter-next-stage">
+              ENTER NEXT STAGE
+            </button>
           </section>
         </main>
-        <footer class="term-foot"><span>ACCESS: <em data-foot-access>RESTRICTED</em></span><span class="term-foot__sep">·</span><span>SUPPLY 555</span></footer>
+
+        <footer class="term-foot">
+          <span>ACCESS: <em data-foot-access>RESTRICTED</em></span>
+          <span class="term-foot__sep">·</span>
+          <span>SUPPLY 555</span>
+        </footer>
       </div>
     </div>
-    <script src="src/js/wl.js?v=3" defer></script>
+
+    <script src="src/js/wl.js?v=4" defer></script>
   </body>
 </html>

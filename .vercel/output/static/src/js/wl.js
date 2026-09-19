@@ -1,6 +1,11 @@
 (function () {
   "use strict";
 
+  /* zec-desk-wl js v4 */
+  /* ------------------------------------------------------------------
+   * configuration
+   * Replace officialX / announcementX / nextStageUrl before launch.
+   * ------------------------------------------------------------------ */
   var WL_CONFIG = {
     officialX: "https://x.com/Zcash",
     announcementX: "https://x.com/Zcash",
@@ -16,23 +21,43 @@
     friends: WL_CONFIG.announcementX,
   };
 
+  /* ------------------------------------------------------------------
+   * state
+   * ------------------------------------------------------------------ */
   var state = {
     screen: "identity",
     username: "",
-    tasks: { follow: false, repost: false, friends: false },
-    pending: { follow: false, repost: false, friends: false },
+    tasks: {
+      follow: false,
+      repost: false,
+      friends: false,
+    },
+    pending: {
+      follow: false,
+      repost: false,
+      friends: false,
+    },
   };
 
+  /* ------------------------------------------------------------------
+   * DOM helpers
+   * ------------------------------------------------------------------ */
   function $(sel, root) {
     return (root || document).querySelector(sel);
   }
+
   function $all(sel, root) {
     return Array.prototype.slice.call((root || document).querySelectorAll(sel));
   }
+
   function announce(msg) {
     var live = $("#status-live");
     if (live) live.textContent = msg;
   }
+
+  /* ------------------------------------------------------------------
+   * persistence
+   * ------------------------------------------------------------------ */
   function persist() {
     try {
       localStorage.setItem(
@@ -45,11 +70,11 @@
           pending: state.pending,
         })
       );
-    } catch (err) {}
+    } catch (err) {
+      /* private mode / blocked storage */
+    }
   }
-  function allTasksComplete() {
-    return !!(state.tasks.follow && state.tasks.repost && state.tasks.friends);
-  }
+
   function restore() {
     try {
       var raw = localStorage.getItem(WL_CONFIG.storageKey);
@@ -74,17 +99,33 @@
       } else {
         state.screen = "identity";
       }
-    } catch (err) {}
+    } catch (err) {
+      /* ignore corrupt storage */
+    }
   }
+
+  /* ------------------------------------------------------------------
+   * username validation
+   * ------------------------------------------------------------------ */
   function normalizeUsername(raw) {
     var value = String(raw || "").trim();
     if (value.charAt(0) === "@") value = value.slice(1);
-    return value.replace(/\s+/g, "");
+    value = value.replace(/\s+/g, "");
+    return value;
   }
+
   function isValidUsername(handle) {
     return /^[A-Za-z0-9_]{1,15}$/.test(handle);
   }
-  var PREV_SCREEN = { quests: "identity", reveal: "quests" };
+
+  /* ------------------------------------------------------------------
+   * screen navigation
+   * ------------------------------------------------------------------ */
+  var PREV_SCREEN = {
+    quests: "identity",
+    reveal: "quests",
+  };
+
   function showScreen(name) {
     state.screen = name;
     $all("[data-screen]").forEach(function (el) {
@@ -103,6 +144,7 @@
     }
     if (name === "reveal") playReveal();
   }
+
   function playReveal() {
     var screen = $('[data-screen="reveal"]');
     if (!screen) return;
@@ -110,19 +152,24 @@
     void screen.offsetWidth;
     screen.classList.add("is-playing");
   }
+
   function updateBackButton() {
     var btn = $('[data-testid="step-back"]');
     if (!btn) return;
     var first = state.screen === "identity";
     btn.disabled = first;
     btn.setAttribute("aria-disabled", first ? "true" : "false");
+    if (first) btn.setAttribute("title", "No previous step");
+    else btn.removeAttribute("title");
   }
+
   function goBack() {
     var prev = PREV_SCREEN[state.screen];
     if (!prev) return;
     showScreen(prev);
     announce("Returned to previous step.");
   }
+
   function updateProgress() {
     var order = { identity: 0, quests: 1, reveal: 2 };
     var current = order[state.screen] || 0;
@@ -148,6 +195,7 @@
       }
     });
   }
+
   function updateOperator() {
     var label = state.username || "—";
     $all("[data-operator]").forEach(function (el) {
@@ -161,11 +209,20 @@
       el.textContent = access;
     });
   }
+
+  /* ------------------------------------------------------------------
+   * task logic
+   * ------------------------------------------------------------------ */
+  function allTasksComplete() {
+    return !!(state.tasks.follow && state.tasks.repost && state.tasks.friends);
+  }
+
   function taskStateFor(key) {
     if (state.tasks[key]) return "complete";
     if (state.pending[key]) return "pending";
     return "idle";
   }
+
   function renderTasks() {
     $all("[data-task]").forEach(function (card) {
       var key = card.getAttribute("data-task");
@@ -198,6 +255,7 @@
         if (confirmBtn) confirmBtn.hidden = true;
       }
     });
+
     var ready = allTasksComplete();
     var cont = $('[data-testid="quests-continue"]');
     var readyMsg = $("[data-quests-ready]");
@@ -207,6 +265,7 @@
     }
     if (readyMsg) readyMsg.hidden = !ready;
   }
+
   function openTask(key) {
     var url = TASK_URLS[key];
     if (url) window.open(url, "_blank", "noopener,noreferrer");
@@ -217,6 +276,7 @@
       announce("Task opened. Return and mark complete.");
     }
   }
+
   function confirmTask(key) {
     if (!state.pending[key] && !state.tasks[key]) return;
     state.tasks[key] = true;
@@ -226,12 +286,23 @@
     announce(key + " marked complete.");
     if (allTasksComplete()) announce("All quests complete. Next stage unlocked.");
   }
+
+  /* ------------------------------------------------------------------
+   * Stage 03 destination — isolated for team integration
+   * ------------------------------------------------------------------ */
   function navigateToNextStage() {
+    /* Replace WL_CONFIG.nextStageUrl with the live destination.
+     * Do not add a game, form, or wallet flow here. */
     window.location.href = WL_CONFIG.nextStageUrl;
   }
+
+  /* ------------------------------------------------------------------
+   * theme
+   * ------------------------------------------------------------------ */
   function currentTheme() {
     return document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
   }
+
   function applyTheme(theme) {
     var light = theme === "light";
     if (light) document.documentElement.setAttribute("data-theme", "light");
@@ -248,9 +319,14 @@
       localStorage.setItem(WL_CONFIG.themeKey, light ? "light" : "dark");
     } catch (err) {}
   }
+
   function toggleTheme() {
     applyTheme(currentTheme() === "light" ? "dark" : "light");
   }
+
+  /* ------------------------------------------------------------------
+   * initialization
+   * ------------------------------------------------------------------ */
   function bindIdentity() {
     var form = $("[data-ident-form]");
     var input = $('[data-testid="username-input"]');
@@ -286,13 +362,22 @@
       announce("Operator " + state.username + ". Quest log open.");
     });
   }
+
   function bindQuests() {
     $all("[data-task]").forEach(function (card) {
       var key = card.getAttribute("data-task");
       var openBtn = $("[data-task-open]", card);
       var confirmBtn = $("[data-task-confirm]", card);
-      if (openBtn) openBtn.addEventListener("click", function () { openTask(key); });
-      if (confirmBtn) confirmBtn.addEventListener("click", function () { confirmTask(key); });
+      if (openBtn) {
+        openBtn.addEventListener("click", function () {
+          openTask(key);
+        });
+      }
+      if (confirmBtn) {
+        confirmBtn.addEventListener("click", function () {
+          confirmTask(key);
+        });
+      }
     });
     var cont = $('[data-testid="quests-continue"]');
     if (cont) {
@@ -303,21 +388,33 @@
       });
     }
   }
+
   function bindReveal() {
     var enter = $('[data-testid="enter-next-stage"]');
-    if (enter) enter.addEventListener("click", function () { navigateToNextStage(); });
+    if (enter) {
+      enter.addEventListener("click", function () {
+        navigateToNextStage();
+      });
+    }
   }
+
   function bindBack() {
     var btn = $('[data-testid="step-back"]');
     if (!btn) return;
-    btn.addEventListener("click", function () { goBack(); });
+    btn.addEventListener("click", function () {
+      goBack();
+    });
   }
+
   function bindTheme() {
     var btn = $("[data-theme-toggle]");
     if (!btn) return;
     applyTheme(currentTheme());
-    btn.addEventListener("click", function () { toggleTheme(); });
+    btn.addEventListener("click", function () {
+      toggleTheme();
+    });
   }
+
   function init() {
     restore();
     bindTheme();
@@ -327,11 +424,36 @@
     bindBack();
     renderTasks();
     updateOperator();
+
     var input = $('[data-testid="username-input"]');
     if (input && state.username) input.value = state.username;
+
     showScreen(state.screen);
     if (state.screen === "identity" && input) input.focus();
+
+    window.__WL_DEBUG = {
+      config: WL_CONFIG,
+      state: state,
+      completeAllTasks: function () {
+        state.tasks.follow = true;
+        state.tasks.repost = true;
+        state.tasks.friends = true;
+        persist();
+        renderTasks();
+      },
+      navigateToNextStage: navigateToNextStage,
+      reset: function () {
+        try {
+          localStorage.removeItem(WL_CONFIG.storageKey);
+        } catch (err) {}
+        window.location.reload();
+      },
+    };
   }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-  else init();
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();

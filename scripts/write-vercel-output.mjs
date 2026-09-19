@@ -32,14 +32,21 @@ copyFile(htmlPath, path.join(staticDir, "index.html"));
 copyFile(cssPath, path.join(staticDir, "src", "css", "wl.css"));
 copyFile(jsPath, path.join(staticDir, "src", "js", "wl.js"));
 
+fs.writeFileSync(path.join(staticDir, "build-id.txt"), "zec-desk-wl-v4\n");
+
 fs.writeFileSync(
   path.join(out, "config.json"),
   JSON.stringify(
     {
       version: 3,
       routes: [
-        { src: "/", dest: "/index.html" },
-        { handle: "filesystem" },
+        {
+          src: "/",
+          dest: "/index.html",
+        },
+        {
+          handle: "filesystem",
+        },
       ],
     },
     null,

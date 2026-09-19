@@ -1,6 +1,7 @@
 (function () {
   "use strict";
 
+  /* zec-desk-wl js v4 */
   /* ------------------------------------------------------------------
    * configuration
    * Replace officialX / announcementX / nextStageUrl before launch.
