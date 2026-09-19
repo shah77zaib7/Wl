@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "mkdir -p public/src/css public/src/js && cp -f wl.html public/wl.html && cp -f wl.html public/index.html && cp -f src/css/wl.css public/src/css/wl.css && cp -f src/js/wl.js public/src/js/wl.js",
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/", "destination": "/wl.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    }
+  ]
+}
